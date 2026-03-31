@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Online Library Management System — A premium SaaS dashboard for managing library operations including book issues, returns, and student records.">
+  <title>OLMS — Online Library Management System</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/pages.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       LOGIN PAGE
+       ═══════════════════════════════════════ -->
+  <div id="login-page" class="page-view login-page">
+    <!-- Animated Background -->
+    <div class="login-bg">
+      <div class="login-bg-gradient"></div>
+      <canvas id="particles-canvas"></canvas>
+      <div class="login-orb"></div>
+      <div class="login-orb"></div>
+      <div class="login-orb"></div>
+      <div class="login-grid"></div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-container">
+      <div class="login-card">
+        <!-- Top gradient accent bar created via CSS ::before -->
+
+        <div class="login-logo">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <h1 class="login-title">Welcome Back</h1>
+        <p class="login-subtitle">Sign in to your OLMS account</p>
+
+        <form id="login-form" class="login-form" novalidate>
+          <!-- Email Field -->
+          <div class="form-group">
+            <input type="email" id="login-email" class="form-input" placeholder=" " autocomplete="email">
+            <label for="login-email" class="form-label">Email Address</label>
+            <i class="fas fa-envelope form-icon"></i>
+            <p id="email-error" class="form-error"></p>
+          </div>
+
+          <!-- Password Field -->
+          <div class="form-group">
+            <input type="password" id="login-password" class="form-input" placeholder=" " autocomplete="current-password">
+            <label for="login-password" class="form-label">Password</label>
+            <i class="fas fa-lock form-icon"></i>
+            <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+              <i class="fas fa-eye"></i>
+            </button>
+            <p id="password-error" class="form-error"></p>
+          </div>
+
+          <!-- Options -->
+          <div class="login-options">
+            <label class="login-remember">
+              <input type="checkbox" checked> Remember me
+            </label>
+            <a href="#" class="login-forgot">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" id="login-submit-btn" class="btn btn-primary login-btn">
+            <span class="btn-text">Sign In</span>
+            <div class="btn-loader"><div class="btn-spinner"></div></div>
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="login-divider">or continue with</div>
+
+        <!-- Social Login -->
+        <div class="login-social">
+          <button class="login-social-btn" aria-label="Sign in with Google">
+            <i class="fab fa-google"></i>
+          </button>
+          <button class="login-social-btn" aria-label="Sign in with Microsoft">
+            <i class="fab fa-microsoft"></i>
+          </button>
+          <button class="login-social-btn" aria-label="Sign in with GitHub">
+            <i class="fab fa-github"></i>
+          </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="login-footer">
+          Don't have an account? <a href="#">Contact Admin</a>
+        </div>
+
+        <!-- Success Overlay -->
+        <div class="login-success-overlay">
+          <div class="success-checkmark">
+            <i class="fas fa-check"></i>
+          </div>
+          <p class="success-text">Login Successful!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       APP SHELL (Sidebar + Navbar + Content)
+       ═══════════════════════════════════════ -->
+  <div class="app-shell" style="display: none;">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <span class="sidebar-brand">OLMS</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <!-- Main Section -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Main</div>
+          <a href="#" class="sidebar-link active" data-page="dashboard">
+            <i class="fas fa-th-large"></i>
+            <span class="sidebar-link-text">Dashboard</span>
+          </a>
+          <a href="#" class="sidebar-link" data-page="books">
+            <i class="fas fa-search"></i>
+            <span class="sidebar-link-text">Book Search</span>
+          </a>
+        </div>
+
+        <!-- Operations Section -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Operations</div>
+          <a href="#" class="sidebar-link" data-page="issue">
+            <i class="fas fa-hand-holding"></i>
+            <span class="sidebar-link-text">Issue Book</span>
+          </a>
+          <a href="#" class="sidebar-link" data-page="return">
+            <i class="fas fa-undo-alt"></i>
+            <span class="sidebar-link-text">Return Book</span>
+            <span class="badge badge-warning">3</span>
+          </a>
+        </div>
+
+        <!-- User Section -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Account</div>
+          <a href="#" class="sidebar-link" data-page="profile">
+            <i class="fas fa-user-circle"></i>
+            <span class="sidebar-link-text">My Profile</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="sidebar-toggle" aria-label="Toggle sidebar">
+          <i class="fas fa-chevron-left"></i>
+          <span class="sidebar-toggle-text">Collapse</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ── Main Content Area ── -->
+    <div class="main-content">
+
+      <!-- ── Top Navbar ── -->
+      <header class="navbar">
+        <div class="navbar-left">
+          <button class="navbar-menu-btn" aria-label="Open navigation menu">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div>
+            <h2 class="navbar-title" id="navbar-page-title">Dashboard</h2>
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <div class="navbar-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search anything..." aria-label="Global search">
+          </div>
+
+          <button class="theme-toggle" aria-label="Toggle dark/light mode">
+            <i class="fas fa-sun"></i>
+          </button>
+
+          <button class="btn-icon btn-ghost navbar-notification" aria-label="Notifications">
+            <i class="fas fa-bell"></i>
+            <span class="notification-dot"></span>
+          </button>
+
+          <div class="navbar-profile">
+            <div class="navbar-avatar">AJ</div>
+            <div>
+              <div class="navbar-user-name">Alice Johnson</div>
+              <div class="navbar-user-role">Librarian</div>
+            </div>
+          </div>
+
+          <button class="btn btn-ghost btn-sm" id="logout-btn" aria-label="Sign out">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </header>
+
+
+      <!-- ═══════════════════════════════════════
+           DASHBOARD PAGE
+           ═══════════════════════════════════════ -->
+      <div id="dashboard-page" class="page-view" style="display:none;">
+        <div class="page-content">
+          <div class="page-header">
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-description">Welcome back, Alice. Here's what's happening in the library today.</p>
+          </div>
+
+          <!-- Stat Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon"><i class="fas fa-books"></i></div>
+                <div class="stat-card-trend up"><i class="fas fa-arrow-up"></i> 12%</div>
+              </div>
+              <div class="stat-card-value" id="stat-total-books">0</div>
+              <div class="stat-card-label">Total Books</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon"><i class="fas fa-book-reader"></i></div>
+                <div class="stat-card-trend up"><i class="fas fa-arrow-up"></i> 8%</div>
+              </div>
+              <div class="stat-card-value" id="stat-issued-books">0</div>
+              <div class="stat-card-label">Issued Books</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon"><i class="fas fa-book"></i></div>
+                <div class="stat-card-trend down"><i class="fas fa-arrow-down"></i> 3%</div>
+              </div>
+              <div class="stat-card-value" id="stat-available-books">0</div>
+              <div class="stat-card-label">Available Books</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon"><i class="fas fa-dollar-sign"></i></div>
+                <div class="stat-card-trend up"><i class="fas fa-arrow-up"></i> 5%</div>
+              </div>
+              <div class="stat-card-value" id="stat-fines">$0</div>
+              <div class="stat-card-label">Total Fines</div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="content-grid">
+            <!-- Monthly Chart -->
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <h3 class="chart-card-title">Monthly Overview</h3>
+                <span class="badge badge-primary">Last 7 months</span>
+              </div>
+              <div class="chart-container">
+                <canvas id="monthly-chart"></canvas>
+              </div>
+            </div>
+
+            <!-- Category Distribution -->
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <h3 class="chart-card-title">Categories</h3>
+                <span class="badge badge-info">Distribution</span>
+              </div>
+              <div class="chart-container">
+                <canvas id="category-chart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3 class="chart-card-title">Recent Activity</h3>
+              <button class="btn btn-ghost btn-sm">View All <i class="fas fa-arrow-right" style="margin-left:4px;"></i></button>
+            </div>
+            <div class="activity-list" id="activity-list">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════
+           BOOK SEARCH PAGE
+           ═══════════════════════════════════════ -->
+      <div id="books-page" class="page-view" style="display:none;">
+        <div class="page-content">
+          <div class="page-header">
+            <h1 class="page-title">Book Search</h1>
+            <p class="page-description">Search and browse the library collection. Issue available books to students.</p>
+          </div>
+
+          <!-- Search Controls -->
+          <div class="search-controls">
+            <div class="search-bar">
+              <i class="fas fa-search"></i>
+              <input type="text" id="book-search-input" placeholder="Search by title, author, category, or ISBN..." aria-label="Search books">
+            </div>
+            <span id="search-results-count" class="search-results-count">12 books found</span>
+            <div class="view-toggle">
+              <button class="view-toggle-btn active" data-view="grid" aria-label="Grid view">
+                <i class="fas fa-th-large"></i>
+              </button>
+              <button class="view-toggle-btn" data-view="table" aria-label="Table view">
+                <i class="fas fa-list"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Grid View -->
+          <div id="books-grid" class="books-grid active">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Table View -->
+          <div id="books-table-wrapper" class="books-table-wrapper table-wrapper">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Book</th>
+                  <th>Author</th>
+                  <th>Category</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="books-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════
+           ISSUE BOOK PAGE
+           ═══════════════════════════════════════ -->
+      <div id="issue-page" class="page-view" style="display:none;">
+        <div class="page-content">
+          <div class="page-header">
+            <h1 class="page-title">Issue Book</h1>
+            <p class="page-description">Issue a library book to a registered student.</p>
+          </div>
+
+          <div class="issue-page-grid">
+            <!-- Form -->
+            <div class="issue-form-card" id="issue-form-card">
+              <div class="issue-form-header">
+                <h2><i class="fas fa-hand-holding" style="color:var(--primary-light);margin-right:8px;"></i> Issue Details</h2>
+                <p>Fill in the details below to issue a book.</p>
+              </div>
+
+              <form id="issue-form" novalidate>
+                <div class="form-group">
+                  <select id="issue-student-select" class="form-select" required>
+                    <option value="">Select a student...</option>
+                  </select>
+                  <p id="issue-student-error" class="form-error"></p>
+                </div>
+
+                <div class="form-group">
+                  <select id="issue-book-select" class="form-select" required>
+                    <option value="">Select a book...</option>
+                  </select>
+                  <p id="issue-book-error" class="form-error"></p>
+                </div>
+
+                <div style="display:flex;gap:var(--space-3);margin-top:var(--space-8);">
+                  <button type="submit" class="btn btn-primary btn-lg" style="flex:1;">
+                    <i class="fas fa-check"></i> Issue Book
+                  </button>
+                  <button type="reset" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-redo"></i> Reset
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Preview / Success -->
+            <div class="issue-preview">
+              <div id="issue-preview-empty" class="issue-preview-empty" style="display:flex;flex-direction:column;align-items:center;">
+                <i class="fas fa-clipboard-list"></i>
+                <p>Select a student and book to see preview</p>
+              </div>
+              <div id="issue-preview-content" class="issue-preview-content" style="display:none;">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+
+            <!-- Success State (hidden by default) -->
+            <div id="issue-success" class="issue-success" style="display:none;">
+              <div class="issue-success-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <h3>Book Issued Successfully!</h3>
+              <p>The book has been issued to the student. They can collect it from the library counter.</p>
+              <button class="btn btn-primary" onclick="App.navigateTo('issue')">
+                <i class="fas fa-plus"></i> Issue Another
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════
+           RETURN BOOK PAGE
+           ═══════════════════════════════════════ -->
+      <div id="return-page" class="page-view" style="display:none;">
+        <div class="page-content">
+          <div class="page-header">
+            <h1 class="page-title">Return Book</h1>
+            <p class="page-description">Process book returns and view fine details.</p>
+          </div>
+
+          <!-- Search Card -->
+          <div class="return-search-card">
+            <h3 style="font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-5);">
+              <i class="fas fa-search" style="color:var(--primary-light);margin-right:8px;"></i>
+              Look Up Issue Record
+            </h3>
+            <form id="return-search-form">
+              <div class="return-search-grid">
+                <div class="form-group" style="margin-bottom:0;">
+                  <input type="text" id="return-book-id" class="form-input" placeholder=" " style="text-transform:uppercase;">
+                  <label for="return-book-id" class="form-label">Book ID (e.g. BK001)</label>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <input type="text" id="return-student-id" class="form-input" placeholder=" " style="text-transform:uppercase;">
+                  <label for="return-student-id" class="form-label">Student ID (e.g. STU001)</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <i class="fas fa-search"></i> Search
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Return Details (shown after search) -->
+          <div id="return-details" class="return-details" style="display:none;">
+            <div id="return-details-content">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════
+           STUDENT PROFILE PAGE
+           ═══════════════════════════════════════ -->
+      <div id="profile-page" class="page-view" style="display:none;">
+        <div class="page-content">
+          <div class="page-header">
+            <h1 class="page-title">Student Profile</h1>
+            <p class="page-description">View student information, issued books, and fine history.</p>
+          </div>
+
+          <!-- Profile Header -->
+          <div class="profile-header-card">
+            <div class="profile-avatar" id="profile-avatar">AJ</div>
+            <div class="profile-info">
+              <h2 id="profile-name">Alice Johnson</h2>
+              <p class="profile-id" id="profile-id">STU001</p>
+              <p class="profile-department" id="profile-department">Computer Science</p>
+            </div>
+            <div class="profile-stats">
+              <div class="profile-stat">
+                <div class="profile-stat-value" id="profile-stat-active">0</div>
+                <div class="profile-stat-label">Active</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat-value" id="profile-stat-total">0</div>
+                <div class="profile-stat-label">Total</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat-value" id="profile-stat-fines">$0</div>
+                <div class="profile-stat-label">Fines</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="tabs profile-tabs" id="profile-tabs">
+            <button class="tab active" data-tab="tab-issued">
+              <i class="fas fa-book" style="margin-right:6px;"></i> Issued Books
+            </button>
+            <button class="tab" data-tab="tab-history">
+              <i class="fas fa-history" style="margin-right:6px;"></i> Return History
+            </button>
+            <button class="tab" data-tab="tab-fines">
+              <i class="fas fa-receipt" style="margin-right:6px;"></i> Fine Summary
+            </button>
+          </div>
+
+          <!-- Tab Content -->
+          <div class="profile-tab-content">
+            <!-- Issued Books Tab -->
+            <div id="tab-issued" class="tab-pane active">
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Book</th>
+                      <th>Issue Date</th>
+                      <th>Due Date</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="profile-issued-tbody">
+                    <!-- Rendered by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Return History Tab -->
+            <div id="tab-history" class="tab-pane">
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Book</th>
+                      <th>Issue Date</th>
+                      <th>Return Date</th>
+                      <th>Fine</th>
+                    </tr>
+                  </thead>
+                  <tbody id="profile-return-tbody">
+                    <!-- Rendered by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Fine Summary Tab -->
+            <div id="tab-fines" class="tab-pane">
+              <div id="fine-summary-content">
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- .main-content -->
+  </div><!-- .app-shell -->
+
+
+  <!-- ═══════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════ -->
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <!-- App Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/pages/login.js"></script>
+  <script src="js/pages/dashboard.js"></script>
+  <script src="js/pages/books.js"></script>
+  <script src="js/pages/issue.js"></script>
+  <script src="js/pages/return.js"></script>
+  <script src="js/pages/profile.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
